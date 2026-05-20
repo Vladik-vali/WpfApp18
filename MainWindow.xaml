@@ -1,0 +1,196 @@
+﻿<Window x:Class="WpfApp18.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="📊 Сервис аналитики продаж" Height="700" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        Background="#F0F2F5">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" CornerRadius="10" Margin="0,0,0,10">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="1,0" StartPoint="0,0">
+                    <GradientStop Color="#667EEA" Offset="0"/>
+                    <GradientStop Color="#764BA2" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <TextBlock Text="📊 Сервис аналитики продаж" FontSize="24" FontWeight="Bold" 
+                       Foreground="White" HorizontalAlignment="Center" Padding="15"/>
+        </Border>
+
+        <TabControl Grid.Row="1" Margin="0,0,0,10">
+
+            <TabItem Header="📦 Товары" FontSize="13" FontWeight="SemiBold" Padding="20,10">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Background="White" CornerRadius="8" Padding="10" Margin="0,0,0,10" BorderBrush="#E0E0E0" BorderThickness="1">
+                        <WrapPanel VerticalAlignment="Center">
+                            <TextBlock Text="Название:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            <TextBox x:Name="NewProductName" Width="150" Margin="0,0,10,0"/>
+                            <TextBlock Text="Категория:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            <ComboBox x:Name="CategorySelect" Width="120" Margin="0,0,10,0" Background="White" Foreground="Black"/>
+                            <TextBlock Text="Цена:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            <TextBox x:Name="NewProductPrice" Width="80" Margin="0,0,10,0"/>
+                            <Button x:Name="AddProductBtn" Content="➕ Добавить" Background="#27AE60" Foreground="White" 
+                                    Click="AddProductBtn_Click" Padding="10,5"/>
+                            <Button x:Name="RefreshProductsBtn" Content="🔄 Обновить" Background="#3498DB" Foreground="White" 
+                                    Click="RefreshProductsBtn_Click" Padding="10,5" Margin="10,0,0,0"/>
+                        </WrapPanel>
+                    </Border>
+
+                    <Border Grid.Row="1" Background="White" CornerRadius="8" Padding="10" BorderBrush="#E0E0E0" BorderThickness="1">
+                        <DataGrid x:Name="ProductsGrid" AutoGenerateColumns="True" IsReadOnly="True" 
+                                  HeadersVisibility="Column" RowHeight="35" FontSize="13">
+                            <DataGrid.Resources>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="Background" Value="#667EEA"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
+                                    <Setter Property="Padding" Value="10"/>
+                                    <Setter Property="FontSize" Value="13"/>
+                                </Style>
+                            </DataGrid.Resources>
+                        </DataGrid>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="💰 Продажи" FontSize="13" FontWeight="SemiBold" Padding="20,10">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Background="White" CornerRadius="8" Padding="10" Margin="0,0,0,10" BorderBrush="#E0E0E0" BorderThickness="1">
+                        <StackPanel>
+                            <WrapPanel Margin="0,0,0,10">
+                                <TextBlock Text="Товар:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                <ComboBox x:Name="ProductSelect" Width="150" Margin="0,0,15,0" Background="White" Foreground="Black"/>
+                                <TextBlock Text="Клиент:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                <ComboBox x:Name="ClientSelect" Width="150" Margin="0,0,15,0" Background="White" Foreground="Black"/>
+                                <TextBlock Text="Кол-во:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                <TextBox x:Name="SaleQuantity" Width="60" Margin="0,0,15,0" Text="1"/>
+                                <TextBlock Text="Дата:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                <DatePicker x:Name="SaleDate" Width="120" Margin="0,0,15,0"/>
+                                <Button x:Name="AddSaleBtn" Content="➕ Добавить продажу" Background="#27AE60" Foreground="White" 
+                                        Click="AddSaleBtn_Click" Padding="10,5"/>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <TextBlock Text="Фильтр по дате:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                <DatePicker x:Name="FilterStartDate" Width="120" Margin="0,0,10,0"/>
+                                <TextBlock Text="—" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                <DatePicker x:Name="FilterEndDate" Width="120" Margin="0,0,10,0"/>
+                                <Button x:Name="ApplyFilterBtn" Content="🔍 Применить" Background="#3498DB" Foreground="White" 
+                                        Click="ApplyFilterBtn_Click" Padding="10,5"/>
+                                <Button x:Name="ResetFilterBtn" Content="❌ Сбросить" Background="#95A5A6" Foreground="White" 
+                                        Click="ResetFilterBtn_Click" Padding="10,5" Margin="10,0,0,0"/>
+                            </WrapPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Row="1" Background="White" CornerRadius="8" Padding="10" BorderBrush="#E0E0E0" BorderThickness="1">
+                        <DataGrid x:Name="SalesGrid" AutoGenerateColumns="True" IsReadOnly="True" 
+                                  HeadersVisibility="Column" RowHeight="35" FontSize="12">
+                            <DataGrid.Resources>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="Background" Value="#E67E22"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
+                                    <Setter Property="Padding" Value="10"/>
+                                    <Setter Property="FontSize" Value="13"/>
+                                </Style>
+                            </DataGrid.Resources>
+                        </DataGrid>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="📈 Статистика и отчёты" FontSize="13" FontWeight="SemiBold" Padding="20,10">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Background="White" CornerRadius="8" Padding="15" Margin="0,0,0,10" BorderBrush="#E0E0E0" BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Text="📊 Статистика" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Border Grid.Column="0" Background="#3498DB" CornerRadius="8" Padding="15" Margin="0,0,10,0">
+                                    <StackPanel>
+                                        <TextBlock Text="💰 Общая выручка" Foreground="White" FontSize="12"/>
+                                        <TextBlock x:Name="TotalRevenueText" Text="0 ₽" Foreground="White" FontSize="22" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Grid.Column="1" Background="#27AE60" CornerRadius="8" Padding="15" Margin="0,0,10,0">
+                                    <StackPanel>
+                                        <TextBlock Text="🛒 Средний чек" Foreground="White" FontSize="12"/>
+                                        <TextBlock x:Name="AverageCheckText" Text="0 ₽" Foreground="White" FontSize="22" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border Grid.Column="2" Background="#E67E22" CornerRadius="8" Padding="15">
+                                    <StackPanel>
+                                        <TextBlock Text="📦 Всего продаж" Foreground="White" FontSize="12"/>
+                                        <TextBlock x:Name="TotalSalesCountText" Text="0" Foreground="White" FontSize="22" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Row="1" Background="White" CornerRadius="8" Padding="15" Margin="0,0,0,10" BorderBrush="#E0E0E0" BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Text="⭐ Самый продаваемый товар" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+                            <Border Background="#FFF3E0" CornerRadius="8" Padding="10">
+                                <TextBlock x:Name="TopProductText" Text="—" FontSize="14" Foreground="#E67E22" FontFamily="Consolas"/>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Row="2" Background="White" CornerRadius="8" Padding="15" BorderBrush="#E0E0E0" BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Text="📄 Формирование отчёта" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+                            <WrapPanel Margin="0,0,0,10">
+                                <TextBlock Text="Начало:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                <DatePicker x:Name="ReportStartDate" Width="120" Margin="0,0,15,0"/>
+                                <TextBlock Text="Конец:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                <DatePicker x:Name="ReportEndDate" Width="120" Margin="0,0,15,0"/>
+                                <Button x:Name="GenerateReportBtn" Content="📄 Сформировать отчёт" Background="#3498DB" Foreground="White" 
+                                        Click="GenerateReportBtn_Click" Padding="15,8"/>
+                            </WrapPanel>
+                            <ScrollViewer MaxHeight="200" VerticalScrollBarVisibility="Auto">
+                                <TextBlock x:Name="ReportText" TextWrapping="Wrap" FontFamily="Consolas" FontSize="12" 
+                                           Background="#F8F9FC" Padding="10"/>
+                            </ScrollViewer>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <StatusBar Grid.Row="2" Background="Transparent" Padding="10">
+            <StatusBarItem>
+                <TextBlock x:Name="StatusText" Text="✅ Готов к работе" Foreground="#667EEA" FontSize="12"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>
